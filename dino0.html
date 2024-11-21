@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T-Rex Runner</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f7f7f7;
+      color: #585858;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .interstitial-wrapper {
+      text-align: center;
+    }
+
+    .onlyforchrome, .onlyfornotchrome {
+      margin-top: 20px;
+    }
+
+    .onlyfornotchrome {
+      display: none;
+    }
+
+    .onlyforchrome button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .onlyfornotchrome p {
+      font-size: 18px;
+    }
+
+    .onlyfornotchrome a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .onlyfornotchrome a:hover {
+      text-decoration: underline;
+    }
+
+    canvas {
+      border: 1px solid #000;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="interstitial-wrapper">
+    <div class="onlyforchrome">
+      <p>Press space to start</p>
+      <button id="startGame">Start Game</button>
+      <canvas id="gameCanvas" width="600" height="150"></canvas>
+    </div>
+    <div class="onlyfornotchrome">
+      <p>Sorry, this game only runs on the Google Chrome! You can download it free <a href="https://www.google.com/chrome">here</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Check if the user agent is Chrome
+    const isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+
+    // Show appropriate message based on the browser
+    document.querySelector('.onlyforchrome').style.display = isChrome ? 'block' : 'none';
+    document.querySelector('.onlyfornotchrome').style.display = isChrome ? 'none' : 'block';
+
+    // Game logic
+    class Runner {
+      constructor(container) {
+        this.container = container;
+        this.canvas = document.getElementById('gameCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.initialize();
+      }
+
+      initialize() {
+        // Game initialization code here
+        console.log('Game initialized');
+        this.startGame();
+      }
+
+      startGame() {
+        // Game start logic here
+        console.log('Game started');
+        this.gameLoop();
+      }
+
+      gameLoop() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(() => this.gameLoop());
+      }
+
+      update() {
+        // Update game state
+      }
+
+      draw() {
+        // Draw game elements
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = '#f7f7f7';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      }
+    }
+
+    // Event listener for start button
+    document.getElementById('startGame').addEventListener('click', () => {
+      new Runner(document.querySelector('.interstitial-wrapper'));
+    });
+  </script>
+</body>
+</html>
